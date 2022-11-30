@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
 		return GetMaterialApp(
 			debugShowCheckedModeBanner: false,
 			theme: ThemeData(
-				scaffoldBackgroundColor: Colors.grey[900]
+				scaffoldBackgroundColor: Colors.black
 			),
 			home: LoginPage(),
 

@@ -21,7 +21,7 @@ class Background extends StatelessWidget {
               width: 300,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.blue.withOpacity(0.5),
+                color: Color.fromRGBO(86, 66, 212, 1).withOpacity(.7),
               ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(
@@ -44,7 +44,7 @@ class Background extends StatelessWidget {
               width: 300,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.red.withOpacity(0.5),
+                color: Color.fromRGBO(210, 32, 60, 1).withOpacity(.7),
               ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(

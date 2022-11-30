@@ -20,9 +20,9 @@ class LoginPage extends StatelessWidget {
           width: screenWidth,
           height: screenHeight,
           child: Column(
+						mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-							SizedBox(height: screenHeight * .28,),
               Container(
                 width: 100,
                 height: 100,
@@ -59,7 +59,10 @@ class LoginPage extends StatelessWidget {
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     gradient:
-                        LinearGradient(colors: [Colors.red, Colors.deepPurple]),
+                        LinearGradient(colors: [
+													Color.fromRGBO(210, 32, 60, 1),
+													Color.fromRGBO(86, 66, 212, 1),
+												]),
                   ),
                   child: Center(
                       child: Text(
@@ -110,15 +113,16 @@ class LoginPage extends StatelessWidget {
 														border: const GradientBoxBorder(
 															gradient: LinearGradient(
 																colors: [
-																	Colors.red,
-																	Colors.deepPurple
+																	Color.fromRGBO(210, 32, 60, 1),
+																	Color.fromRGBO(86, 66, 212, 1),
 																]
 															)
 														),
 														gradient: LinearGradient(
 															colors: [
-																Colors.red.withOpacity(.35),
-																Colors.deepPurple.withOpacity(.35)
+																Color.fromRGBO(210, 32, 60, 1).withOpacity(.35),
+																Color.fromRGBO(86, 66, 212, 1).withOpacity(.35),
+
 															]
 														),
 													),
@@ -133,15 +137,15 @@ class LoginPage extends StatelessWidget {
 														border: const GradientBoxBorder(
 															gradient: LinearGradient(
 																colors: [
-																	Colors.red,
-																	Colors.deepPurple
+																	Color.fromRGBO(210, 32, 60, 1),
+																	Color.fromRGBO(86, 66, 212, 1),
 																]
 															)
 														),
 														gradient: LinearGradient(
 															colors: [
-																Colors.red.withOpacity(.35),
-																Colors.deepPurple.withOpacity(.35)
+																Color.fromRGBO(210, 32, 60, 1).withOpacity(.35),
+																Color.fromRGBO(86, 66, 212, 1).withOpacity(.35),
 															]
 														),
 													),
@@ -156,15 +160,15 @@ class LoginPage extends StatelessWidget {
 														border: const GradientBoxBorder(
 															gradient: LinearGradient(
 																colors: [
-																	Colors.red,
-																	Colors.deepPurple
+																	Color.fromRGBO(210, 32, 60, 1),
+																	Color.fromRGBO(86, 66, 212, 1),
 																]
 															)
 														),
 														gradient: LinearGradient(
 															colors: [
-																Colors.red.withOpacity(.35),
-																Colors.deepPurple.withOpacity(.35)
+																Color.fromRGBO(210, 32, 60, 1).withOpacity(.35),
+																Color.fromRGBO(86, 66, 212, 1).withOpacity(.35),
 															]
 														),
 													),
