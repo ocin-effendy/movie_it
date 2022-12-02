@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
@@ -32,22 +31,22 @@ class LoginPage extends StatelessWidget {
               ),
               Text(
                 "Movie It",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.nunito(
                     color: Colors.white,
                     fontSize: 36,
-                    fontWeight: FontWeight.w500),
+                    fontWeight: FontWeight.w700),
               ),
 							const SizedBox(height: 20,),
               SizedBox(
-                  width: screenWidth * .8,
+                  width: screenWidth * .7,
                   child: Text(
-                    "enter your data to immerse yourself in the wordl of cinema",
+                    "Enter your data to immerse yourself in the wordl of cinema",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                        color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
+                    style: GoogleFonts.nunito(
+                        color: Colors.white, fontSize: 16),
                   )),
               const SizedBox(
-                height: 40,
+                height: 60,
               ),
               GestureDetector(
                 onTap: () {
@@ -67,29 +66,32 @@ class LoginPage extends StatelessWidget {
                   child: Center(
                       child: Text(
                     "Sign Up",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.nunito(
                         fontWeight: FontWeight.w500, color: Colors.white),
                   )),
                 ),
               ),
+							const SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "I already have an account?",
-                    style: TextStyle(color: Colors.grey, fontSize: 18),
+                    style: GoogleFonts.nunito(color: Colors.grey, fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                   TextButton(
                     onPressed: () {
 											Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => LoginInput(type: "Login",)));
 
 										},
-                    child: const Text(
+                    child: Text(
                       "Login",
-                      style: TextStyle(
+                      style: GoogleFonts.nunito(
                           color: Colors.white,
                           decoration: TextDecoration.underline,
-                          fontSize: 18),
+                          fontSize: 18,
+													fontWeight: FontWeight.w700
+												),
                     ),
                   )
                 ],
@@ -97,7 +99,7 @@ class LoginPage extends StatelessWidget {
 							const SizedBox(height: 70,),
 							Column(
 								children: [
-									const Text("Or Sign up with", style: TextStyle(color: Colors.grey, fontSize: 16)),
+									Text("Or Sign up with", style: GoogleFonts.nunito(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w500)),
 									Container(
 										margin: const EdgeInsets.only(top: 20),
 										width: screenWidth * .5,

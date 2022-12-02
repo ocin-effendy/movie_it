@@ -46,7 +46,7 @@ class _LoginInputState extends State<LoginInput> {
         ),
         title: Text(
           widget.type,
-          style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w500),
+          style: GoogleFonts.nunito(fontSize: 24, fontWeight: FontWeight.w500),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -67,7 +67,7 @@ class _LoginInputState extends State<LoginInput> {
                     ),
                     Text(
                       "Hi, Hace a nice day",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.nunito(
                           color: Colors.grey[300],
                           fontWeight: FontWeight.w500,
                           fontSize: 18),
@@ -77,9 +77,9 @@ class _LoginInputState extends State<LoginInput> {
                     ),
                     Text(
                       "Welcome back! Please enter tour details.",
-                      style: GoogleFonts.poppins(color: Colors.grey[400]),
+                      style: GoogleFonts.nunito(color: Colors.grey[400], fontSize: 17),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     Column(
@@ -89,8 +89,8 @@ class _LoginInputState extends State<LoginInput> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Username : ",
-                              style: GoogleFonts.poppins(
+                              "Email Address : ",
+                              style: GoogleFonts.nunito(
                                   color: Colors.grey, fontSize: 14),
                             ),
                             Container(
@@ -126,7 +126,7 @@ class _LoginInputState extends State<LoginInput> {
                           children: [
                             Text(
                               "Password : ",
-                              style: GoogleFonts.poppins(
+                              style: GoogleFonts.nunito(
                                   color: Colors.grey, fontSize: 14),
                             ),
                             Container(
@@ -166,7 +166,7 @@ class _LoginInputState extends State<LoginInput> {
                             onPressed: () {},
                             child: Text(
                               "Forgot Password?",
-                              style: GoogleFonts.poppins(
+                              style: GoogleFonts.nunito(
                                   color: Colors.grey,
                                   textStyle: const TextStyle(
                                       decoration: TextDecoration.underline)),
@@ -190,7 +190,7 @@ class _LoginInputState extends State<LoginInput> {
                             child: Center(
                                 child: Text(
                               widget.type,
-                              style: GoogleFonts.poppins(
+                              style: GoogleFonts.nunito(
                                   fontWeight: FontWeight.w500, color: Colors.white),
                             )),
                           ),

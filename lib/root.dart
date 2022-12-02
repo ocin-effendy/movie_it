@@ -7,13 +7,14 @@ import 'package:movie_it/pages/profile_page.dart';
 import 'package:movie_it/pages/tv_shows_page.dart';
 
 class Root extends StatelessWidget {
-  const Root({Key? key}) : super(key: key);
+  Root({Key? key}) : super(key: key);
+	final screenController = Get.put(ScreenController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<ScreenController>(
-        init: ScreenController(),
+        init: screenController,
         builder: (controller) => PageStorage(
           bucket: controller.bucket,
           child: controller.currentScreen,
