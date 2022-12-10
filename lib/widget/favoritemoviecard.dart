@@ -14,7 +14,6 @@ class FavoriteMovieCard extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      width: screenWidth * .9,
       margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
@@ -31,7 +30,7 @@ class FavoriteMovieCard extends StatelessWidget {
             width: screenWidth * 0.34,
             height: screenWidth * 0.5,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 image: DecorationImage(
                     fit: BoxFit.fill,
                     image: NetworkImage(linkImage))),
@@ -40,7 +39,7 @@ class FavoriteMovieCard extends StatelessWidget {
             width: 10,
           ),
           SizedBox(
-            width: screenWidth * .9 - screenWidth * 0.34 - 32,
+            width: screenWidth * .46,
             height: screenWidth * 0.5,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +50,6 @@ class FavoriteMovieCard extends StatelessWidget {
                   children: [
                     Container(
 											padding: const EdgeInsets.only(top: 10),
-											width: 150,
                       child: Text(
 												title,
 												maxLines: 2,

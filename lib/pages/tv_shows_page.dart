@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:movie_it/controller/movie_controller.dart';
 import 'package:movie_it/widget/background.dart';
 import 'package:movie_it/widget/moviecard.dart';
 
@@ -11,6 +13,7 @@ class TvShowsPage extends StatefulWidget {
 
 class _TvShowsPageState extends State<TvShowsPage> {
   FocusNode focusNode = FocusNode();
+  final movieController = Get.put(MovieController());
 
   bool statusSearch = false;
 
@@ -120,50 +123,51 @@ class _TvShowsPageState extends State<TvShowsPage> {
                                   "Continue Watching",
                                   style: GoogleFonts.nunito(
                                     color: Colors.white,
-																		fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 20,
                                   ),
                                 ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  physics: const BouncingScrollPhysics(),
-                                  child: Row(
-                                    children: [
-                                      MovieCard(
-                                        title: "Spiderman No Way Home",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                      MovieCard(
-                                        title: "After",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                      MovieCard(
-                                        title: "After",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                      MovieCard(
-                                        title: "After",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                      MovieCard(
-                                        title: "After",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                    ],
-                                  ),
+                                SizedBox(
+                                  height: 260,
+                                  child: movieController.isLoadingTop.value
+                                      ? Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : ListView.builder(
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: movieController
+                                                  .movieTopModel
+                                                  ?.results
+                                                  .length ??
+                                              0,
+                                          itemBuilder: (context, index) {
+                                            return MovieCard(
+                                              title: movieController
+                                                      .movieTopModel
+                                                      ?.results[index]
+                                                      .title ??
+                                                  "no title",
+                                              rating: movieController
+                                                      .movieTopModel
+                                                      ?.results[index]
+                                                      .voteAverage
+                                                      .toString() ??
+                                                  "0",
+                                              linkImage: movieController
+                                                      .movieTopModel
+                                                      ?.results[index]
+                                                      .posterPath ??
+                                                  "",
+                                              id: movieController.movieTopModel
+                                                      ?.results[index].id ??
+                                                  0,
+                                            );
+                                          }),
                                 ),
                               ],
                             ),
@@ -177,50 +181,53 @@ class _TvShowsPageState extends State<TvShowsPage> {
                                   "Comedy",
                                   style: GoogleFonts.nunito(
                                     color: Colors.white,
-																		fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 20,
                                   ),
                                 ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  physics: const BouncingScrollPhysics(),
-                                  child: Row(
-                                    children: [
-                                      MovieCard(
-                                        title: "Spiderman No Way Home",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                      MovieCard(
-                                        title: "After",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                      MovieCard(
-                                        title: "After",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                      MovieCard(
-                                        title: "After",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                      MovieCard(
-                                        title: "After",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                    ],
-                                  ),
+                                SizedBox(
+                                  height: 260,
+                                  child: movieController.isLoadingPopular.value
+                                      ? Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : ListView.builder(
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: movieController
+                                                  .moviePopularModel
+                                                  ?.results
+                                                  .length ??
+                                              0,
+                                          itemBuilder: (context, index) {
+                                            return MovieCard(
+                                              title: movieController
+                                                      .moviePopularModel
+                                                      ?.results[index]
+                                                      .title ??
+                                                  "no title",
+                                              rating: movieController
+                                                      .moviePopularModel
+                                                      ?.results[index]
+                                                      .voteAverage
+                                                      .toString() ??
+                                                  "0",
+                                              linkImage: movieController
+                                                      .moviePopularModel
+                                                      ?.results[index]
+                                                      .posterPath ??
+                                                  "",
+                                              id: movieController
+                                                      .moviePopularModel
+                                                      ?.results[index]
+                                                      .id ??
+                                                  0,
+                                            );
+                                          }),
                                 ),
                               ],
                             ),
@@ -234,50 +241,47 @@ class _TvShowsPageState extends State<TvShowsPage> {
                                   "Popular in Poland",
                                   style: GoogleFonts.nunito(
                                     color: Colors.white,
-																		fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 20,
                                   ),
                                 ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  physics: const BouncingScrollPhysics(),
-                                  child: Row(
-                                    children: [
-                                      MovieCard(
-                                        title: "Spiderman No Way Home",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                      MovieCard(
-                                        title: "After",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                      MovieCard(
-                                        title: "After",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                      MovieCard(
-                                        title: "After",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                      MovieCard(
-                                        title: "After",
-                                        rating: "9.1",
-                                        linkImage:
-                                            "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                      ),
-                                    ],
-                                  ),
+                                SizedBox(
+                                  height: 260,
+                                  child: movieController.isLoading.value
+                                      ? Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : ListView.builder(
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: movieController
+                                                  .movieModel?.results.length ??
+                                              0,
+                                          itemBuilder: (context, index) {
+                                            return MovieCard(
+                                              title: movieController.movieModel
+                                                      ?.results[index].title ??
+                                                  "no title",
+                                              rating: movieController
+                                                      .movieModel
+                                                      ?.results[index]
+                                                      .voteAverage
+                                                      .toString() ??
+                                                  "0",
+                                              linkImage: movieController
+                                                      .movieModel
+                                                      ?.results[index]
+                                                      .posterPath ??
+                                                  "",
+                                              id: movieController.movieModel
+                                                      ?.results[index].id ??
+                                                  0,
+                                            );
+                                          }),
                                 ),
                               ],
                             ),

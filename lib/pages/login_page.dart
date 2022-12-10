@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:movie_it/controller/movie_controller.dart';
 import 'package:movie_it/pages/login_user_input.dart';
+import 'package:movie_it/service/movie_service.dart';
 import 'package:movie_it/widget/background.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +17,12 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: Stack(children: [
-				const Background(),
+        const Background(),
         SizedBox(
           width: screenWidth,
           height: screenHeight,
           child: Column(
-						mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
@@ -36,32 +39,38 @@ class LoginPage extends StatelessWidget {
                     fontSize: 36,
                     fontWeight: FontWeight.w700),
               ),
-							const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               SizedBox(
                   width: screenWidth * .7,
                   child: Text(
                     "Enter your data to immerse yourself in the wordl of cinema",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.nunito(
-                        color: Colors.white, fontSize: 16),
+                    style:
+                        GoogleFonts.nunito(color: Colors.white, fontSize: 16),
                   )),
               const SizedBox(
                 height: 60,
               ),
               GestureDetector(
                 onTap: () {
-									Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => LoginInput(type: "Sign Up",)));
-								},
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => LoginInput(
+                                type: "Sign Up",
+                              )));
+                },
                 child: Container(
                   width: screenWidth * .8,
                   height: 50,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    gradient:
-                        LinearGradient(colors: [
-													Color.fromRGBO(210, 32, 60, 1),
-													Color.fromRGBO(86, 66, 212, 1),
-												]),
+                    gradient: LinearGradient(colors: [
+                      Color.fromRGBO(210, 32, 60, 1),
+                      Color.fromRGBO(86, 66, 212, 1),
+                    ]),
                   ),
                   child: Center(
                       child: Text(
@@ -71,116 +80,120 @@ class LoginPage extends StatelessWidget {
                   )),
                 ),
               ),
-							const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "I already have an account?",
-                    style: GoogleFonts.nunito(color: Colors.grey, fontSize: 18, fontWeight: FontWeight.w500),
+                    style: GoogleFonts.nunito(
+                        color: Colors.grey,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
                   ),
                   TextButton(
                     onPressed: () {
-											Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => LoginInput(type: "Login",)));
-
-										},
+                      //print(controller.movieModel?.results[0].title);
+                      //print(controller.movieModel?.results[1].title);
+                      //print(controller.movieModel?.results[2].title);
+                      // var data = await MovieService().getNowPlayingMovies();
+                      // print(data.body);
+                      //Navigator.pus h(context, MaterialPageRoute(builder: (BuildContext context) => LoginInput(type: "Login",)));
+                    },
                     child: Text(
                       "Login",
                       style: GoogleFonts.nunito(
                           color: Colors.white,
                           decoration: TextDecoration.underline,
                           fontSize: 18,
-													fontWeight: FontWeight.w700
-												),
+                          fontWeight: FontWeight.w700),
                     ),
                   )
                 ],
               ),
-							const SizedBox(height: 70,),
-							Column(
-								children: [
-									Text("Or Sign up with", style: GoogleFonts.nunito(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w500)),
-									Container(
-										margin: const EdgeInsets.only(top: 20),
-										width: screenWidth * .5,
-										child: Row(
-											mainAxisAlignment: MainAxisAlignment.spaceAround,
-											children: [
-												Container(
-													padding: const EdgeInsets.all(12),
-													width: 50,
-													height: 50,
-													decoration: BoxDecoration(
-														borderRadius: const BorderRadius.all(Radius.circular(12)),
-														border: const GradientBoxBorder(
-															gradient: LinearGradient(
-																colors: [
-																	Color.fromRGBO(210, 32, 60, 1),
-																	Color.fromRGBO(86, 66, 212, 1),
-																]
-															)
-														),
-														gradient: LinearGradient(
-															colors: [
-																Color.fromRGBO(210, 32, 60, 1).withOpacity(.35),
-																Color.fromRGBO(86, 66, 212, 1).withOpacity(.35),
-
-															]
-														),
-													),
-													child: const Image(image: AssetImage("assets/google_logo.png")),
-												),
-												Container(
-													padding: const EdgeInsets.all(12),
-													width: 50,
-													height: 50,
-													decoration: BoxDecoration(
-														borderRadius: const BorderRadius.all(Radius.circular(12)),
-														border: const GradientBoxBorder(
-															gradient: LinearGradient(
-																colors: [
-																	Color.fromRGBO(210, 32, 60, 1),
-																	Color.fromRGBO(86, 66, 212, 1),
-																]
-															)
-														),
-														gradient: LinearGradient(
-															colors: [
-																Color.fromRGBO(210, 32, 60, 1).withOpacity(.35),
-																Color.fromRGBO(86, 66, 212, 1).withOpacity(.35),
-															]
-														),
-													),
-													child: const Image(image: AssetImage("assets/apple_logo.png")),
-												),
-												Container(
-													padding: const EdgeInsets.all(12),
-													width: 50,
-													height: 50,
-													decoration: BoxDecoration(
-														borderRadius: const BorderRadius.all(Radius.circular(12)),
-														border: const GradientBoxBorder(
-															gradient: LinearGradient(
-																colors: [
-																	Color.fromRGBO(210, 32, 60, 1),
-																	Color.fromRGBO(86, 66, 212, 1),
-																]
-															)
-														),
-														gradient: LinearGradient(
-															colors: [
-																Color.fromRGBO(210, 32, 60, 1).withOpacity(.35),
-																Color.fromRGBO(86, 66, 212, 1).withOpacity(.35),
-															]
-														),
-													),
-													child: const Image(image: AssetImage("assets/facebook_logo.png")),
-												),
-											],
-										),
-									)
-								],
-							)
+              const SizedBox(
+                height: 70,
+              ),
+              Column(
+                children: [
+                  Text("Or Sign up with",
+                      style: GoogleFonts.nunito(
+                          color: Colors.grey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500)),
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    width: screenWidth * .5,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                            border: const GradientBoxBorder(
+                                gradient: LinearGradient(colors: [
+                              Color.fromRGBO(210, 32, 60, 1),
+                              Color.fromRGBO(86, 66, 212, 1),
+                            ])),
+                            gradient: LinearGradient(colors: [
+                              Color.fromRGBO(210, 32, 60, 1).withOpacity(.35),
+                              Color.fromRGBO(86, 66, 212, 1).withOpacity(.35),
+                            ]),
+                          ),
+                          child: const Image(
+                              image: AssetImage("assets/google_logo.png")),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                            border: const GradientBoxBorder(
+                                gradient: LinearGradient(colors: [
+                              Color.fromRGBO(210, 32, 60, 1),
+                              Color.fromRGBO(86, 66, 212, 1),
+                            ])),
+                            gradient: LinearGradient(colors: [
+                              Color.fromRGBO(210, 32, 60, 1).withOpacity(.35),
+                              Color.fromRGBO(86, 66, 212, 1).withOpacity(.35),
+                            ]),
+                          ),
+                          child: const Image(
+                              image: AssetImage("assets/apple_logo.png")),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                            border: const GradientBoxBorder(
+                                gradient: LinearGradient(colors: [
+                              Color.fromRGBO(210, 32, 60, 1),
+                              Color.fromRGBO(86, 66, 212, 1),
+                            ])),
+                            gradient: LinearGradient(colors: [
+                              Color.fromRGBO(210, 32, 60, 1).withOpacity(.35),
+                              Color.fromRGBO(86, 66, 212, 1).withOpacity(.35),
+                            ]),
+                          ),
+                          child: const Image(
+                              image: AssetImage("assets/facebook_logo.png")),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),

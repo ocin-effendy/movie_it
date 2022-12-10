@@ -1,39 +1,58 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_it/controller/movie_controller.dart';
 import 'package:movie_it/controller/screen_controller.dart';
 import 'package:movie_it/pages/detailmovie.dart';
 
-class MovieCard extends StatelessWidget {
-  MovieCard({Key? key, required this.title, required this.rating, required this.linkImage}) : super(key: key);
-	String title;
-	String rating;
-	String linkImage;
+const String BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
 
-	final screenController = Get.find<ScreenController>();
+class MovieCard extends StatelessWidget {
+  MovieCard(
+      {Key? key,
+      required this.id,
+      required this.title,
+      required this.rating,
+      required this.linkImage})
+      : super(key: key);
+
+  int id;
+  String title;
+  String rating;
+  String linkImage;
+
+  final screenController = Get.find<ScreenController>();
+  final movieController = Get.put(MovieController());
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
-			onTap: (){
-				screenController.setCurrentScreen(DetailMovie(), screenController.currentTab);
-			},
+      onTap: () {
+        //movieController.fetchDataDetailMovie(id);
+        screenController.setCurrentScreen(
+            DetailMovie(
+              id: id,
+            ),
+            screenController.currentTab);
+      },
       child: Container(
-			margin: const EdgeInsets.only(right: 15),
+        margin: const EdgeInsets.only(right: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: screenWidth * 0.34,
               height: screenWidth * 0.5,
-              decoration: BoxDecoration(
+              child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(
-									linkImage,
-                  )),
-                color: Colors.white,
+                child: CachedNetworkImage(
+                  imageUrl: "$BASE_IMAGE_URL$linkImage",
+                  placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
               ),
             ),
             const SizedBox(
@@ -45,10 +64,10 @@ class MovieCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-									width: screenWidth * .3,
+                    width: screenWidth * .3,
                     child: Text(
                       title,
-										overflow: TextOverflow.ellipsis,
+                      overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.nunito(
                         color: Colors.white,
                         fontSize: 16,

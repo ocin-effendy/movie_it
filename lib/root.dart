@@ -8,8 +8,7 @@ import 'package:movie_it/pages/tv_shows_page.dart';
 
 class Root extends StatelessWidget {
   Root({Key? key}) : super(key: key);
-	final screenController = Get.put(ScreenController());
-
+	final screenController = Get.find<ScreenController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
