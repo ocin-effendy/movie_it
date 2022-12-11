@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:movie_it/models/movie_detail_model.dart';
 import 'package:movie_it/models/movie_model.dart';
@@ -76,11 +75,8 @@ class MovieController extends GetxController {
   void fetchDataDetailMovie(int id) async {
     try {
       isLoadingDetail(true);
-      print("Masuk ke isi cok");
       http.Response response =
           await http.get(Uri.tryParse('$BASE_URL/movie/$id?$API_KEY')!);
-      print(response);
-      print(response.runtimeType);
       if (response.statusCode == 200) {
         var result = jsonDecode(response.body);
         print(result);
@@ -101,6 +97,5 @@ class MovieController extends GetxController {
     fetchDataMovies();
     fetchDataPopularMovie();
     fetchDataTopMovie();
-    //fetchDataDetailMovie(436270);
   }
 }

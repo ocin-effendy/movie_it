@@ -23,14 +23,14 @@ class MovieCard extends StatelessWidget {
   String linkImage;
 
   final screenController = Get.find<ScreenController>();
-  final movieController = Get.put(MovieController());
+  final movieController = Get.find<MovieController>();
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        //movieController.fetchDataDetailMovie(id);
+        movieController.fetchDataDetailMovie(id);
         screenController.setCurrentScreen(
             DetailMovie(
               id: id,
@@ -40,7 +40,7 @@ class MovieCard extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(right: 15),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               height: screenWidth * 0.5,

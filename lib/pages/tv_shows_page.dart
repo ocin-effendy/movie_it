@@ -13,7 +13,7 @@ class TvShowsPage extends StatefulWidget {
 
 class _TvShowsPageState extends State<TvShowsPage> {
   FocusNode focusNode = FocusNode();
-  final movieController = Get.put(MovieController());
+  final movieController = Get.find<MovieController>();
 
   bool statusSearch = false;
 

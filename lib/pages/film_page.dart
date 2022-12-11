@@ -13,8 +13,7 @@ class FilmPage extends StatefulWidget {
 
 class _FilmPageState extends State<FilmPage> {
   FocusNode focusNode = FocusNode();
-  final movieController = Get.put(MovieController());
-
+  final movieController = Get.find<MovieController>();
   bool statusSearch = false;
 
   @override
