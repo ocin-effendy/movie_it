@@ -41,6 +41,8 @@ dependencies:
   gradient_borders: ^0.2.0
   http: ^0.13.5
   cached_network_image: ^3.2.3
+  firebase_core: ^2.4.0
+  firebase_auth: ^4.2.0
 
 dev_dependencies:
   flutter_test:

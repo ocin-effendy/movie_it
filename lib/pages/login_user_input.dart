@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:movie_it/controller/auth_controller.dart';
 import 'package:movie_it/pages/film_page.dart';
 import 'package:movie_it/root.dart';
 import 'package:movie_it/widget/background.dart';
@@ -15,16 +17,26 @@ class LoginInput extends StatefulWidget {
 
 class _LoginInputState extends State<LoginInput> {
   bool showAnimated = false;
-	bool showPass = false;
+  bool showPass = false;
+  final emailC = TextEditingController();
+  final passwordC = TextEditingController();
+  final authController = Get.find<AuthController>();
 
   @override
   void initState() {
-		Future.delayed(Duration(microseconds: 1),(){
-			setState(() {
-				showAnimated = true;
-			});
-		});
+    Future.delayed(Duration(microseconds: 1), () {
+      setState(() {
+        showAnimated = true;
+      });
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailC.dispose();
+    passwordC.dispose();
+    super.dispose();
   }
 
   @override
@@ -36,12 +48,12 @@ class _LoginInputState extends State<LoginInput> {
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
-          onPressed: (){
-						setState(() {
-							showAnimated = false;
-						});
-						Navigator.pop(context);
-					},
+          onPressed: () {
+            setState(() {
+              showAnimated = false;
+            });
+            Navigator.pop(context);
+          },
           icon: const Icon(Icons.arrow_back_ios_rounded, color: Colors.white),
         ),
         title: Text(
@@ -52,7 +64,7 @@ class _LoginInputState extends State<LoginInput> {
         elevation: 0,
       ),
       body: GestureDetector(
-				onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: SingleChildScrollView(
           child: Stack(
             children: [
@@ -77,7 +89,8 @@ class _LoginInputState extends State<LoginInput> {
                     ),
                     Text(
                       "Welcome back! Please enter tour details.",
-                      style: GoogleFonts.nunito(color: Colors.grey[400], fontSize: 17),
+                      style: GoogleFonts.nunito(
+                          color: Colors.grey[400], fontSize: 17),
                     ),
                     const SizedBox(
                       height: 50,
@@ -97,15 +110,16 @@ class _LoginInputState extends State<LoginInput> {
                               width: screenWidth * .8,
                               height: 50,
                               decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
                                 border: GradientBoxBorder(
-                                    gradient: LinearGradient(
-                                        colors: [
-																					Color.fromRGBO(210, 32, 60, 1),
-																					Color.fromRGBO(86, 66, 212, 1),
-																		])),
+                                    gradient: LinearGradient(colors: [
+                                  Color.fromRGBO(210, 32, 60, 1),
+                                  Color.fromRGBO(86, 66, 212, 1),
+                                ])),
                               ),
-                              child: const TextField(
+                              child: TextField(
+                                controller: emailC,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
@@ -133,31 +147,35 @@ class _LoginInputState extends State<LoginInput> {
                               width: screenWidth * .8,
                               height: 50,
                               decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
                                 border: GradientBoxBorder(
-                                    gradient: LinearGradient(
-                                        colors: [
-																					Color.fromRGBO(210, 32, 60, 1),
-																					Color.fromRGBO(86, 66, 212, 1),
-																				])),
+                                    gradient: LinearGradient(colors: [
+                                  Color.fromRGBO(210, 32, 60, 1),
+                                  Color.fromRGBO(86, 66, 212, 1),
+                                ])),
                               ),
                               child: TextField(
-																obscureText: !showPass,
+                                controller: passwordC,
+                                obscureText: !showPass,
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                                 decoration: InputDecoration(
                                     disabledBorder: InputBorder.none,
                                     focusedBorder: InputBorder.none,
-																		suffixIcon: IconButton(
-																			onPressed: (){
-																				setState(() {
-																					showPass = !showPass;
-																				});
-																			},
-																			icon: Icon(showPass ? Icons.visibility : Icons.visibility_off, color: Colors.grey,)
-																			)
-																	),
+                                    suffixIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            showPass = !showPass;
+                                          });
+                                        },
+                                        icon: Icon(
+                                          showPass
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          color: Colors.grey,
+                                        ))),
                               ),
                             ),
                           ],
@@ -175,23 +193,31 @@ class _LoginInputState extends State<LoginInput> {
                           height: 20,
                         ),
                         GestureDetector(
-                          onTap: () => Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) => Root()), (Route<dynamic> route) => false),
+                          onTap: () {
+                            if (widget.type == "Login") {
+                              authController.login(emailC.text, passwordC.text);
+                            } else {
+                              authController.signUp(
+                                  emailC.text, passwordC.text);
+                            }
+                          },
                           child: Container(
                             width: screenWidth * .8,
                             height: 50,
                             decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                              gradient: LinearGradient(
-                                  colors: [
-																		Color.fromRGBO(210, 32, 60, 1),
-																		Color.fromRGBO(86, 66, 212, 1),
-																	]),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              gradient: LinearGradient(colors: [
+                                Color.fromRGBO(210, 32, 60, 1),
+                                Color.fromRGBO(86, 66, 212, 1),
+                              ]),
                             ),
                             child: Center(
                                 child: Text(
                               widget.type,
                               style: GoogleFonts.nunito(
-                                  fontWeight: FontWeight.w500, color: Colors.white),
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white),
                             )),
                           ),
                         ),
@@ -201,22 +227,22 @@ class _LoginInputState extends State<LoginInput> {
                 ),
               ),
               AnimatedPositioned(
-						curve: Curves.easeIn,
+                curve: Curves.easeIn,
                 duration: const Duration(milliseconds: 80),
                 bottom: showAnimated ? -screenHeight * .08 : screenHeight * .3,
                 right: showAnimated ? -screenWidth * .15 : screenWidth * .18,
                 child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 400),
-						opacity: showAnimated ? 1 : 0,
+                  duration: const Duration(milliseconds: 400),
+                  opacity: showAnimated ? 1 : 0,
                   child: Container(
                     padding: const EdgeInsets.all(55),
                     width: screenWidth * .65,
                     height: screenWidth * .65,
                     decoration: BoxDecoration(
-												shape: BoxShape.circle,
+                        shape: BoxShape.circle,
                         gradient: LinearGradient(colors: [
-													Color.fromRGBO(210, 32, 60, 1).withOpacity(.5),
-													Color.fromRGBO(86, 66, 212, 1).withOpacity(.5),
+                          Color.fromRGBO(210, 32, 60, 1).withOpacity(.5),
+                          Color.fromRGBO(86, 66, 212, 1).withOpacity(.5),
                         ])),
                     child: Stack(
                       alignment: Alignment.center,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:movie_it/controller/auth_controller.dart';
 import 'package:movie_it/controller/movie_controller.dart';
 import 'package:movie_it/widget/background.dart';
 import 'package:movie_it/widget/moviecard.dart';
@@ -14,6 +15,7 @@ class FilmPage extends StatefulWidget {
 class _FilmPageState extends State<FilmPage> {
   FocusNode focusNode = FocusNode();
   final movieController = Get.find<MovieController>();
+  final authController = Get.find<AuthController>();
   bool statusSearch = false;
 
   @override
@@ -49,7 +51,7 @@ class _FilmPageState extends State<FilmPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () => authController.logOut(),
                           icon: const Icon(
                             Icons.arrow_back_ios_rounded,
                             color: Colors.white,
@@ -108,186 +110,195 @@ class _FilmPageState extends State<FilmPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Continue Watching",
-                                  style: GoogleFonts.nunito(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20,
+                  Obx(
+                    () => Expanded(
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Continue Watching",
+                                    style: GoogleFonts.nunito(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                SizedBox(
-                                  height: 260,
-                                  child: movieController.isLoading.value
-                                      ? Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : ListView.builder(
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: movieController
-                                                  .movieModel?.results.length ??
-                                              0,
-                                          itemBuilder: (context, index) {
-                                            return MovieCard(
-                                              title: movieController.movieModel
-                                                      ?.results[index].title ??
-                                                  "no title",
-                                              rating: movieController
-                                                      .movieModel
-                                                      ?.results[index]
-                                                      .voteAverage
-                                                      .toString() ??
-                                                  "0",
-                                              linkImage: movieController
-                                                      .movieModel
-                                                      ?.results[index]
-                                                      .posterPath ??
-                                                  "",
-                                              id: movieController.movieModel
-                                                      ?.results[index].id ??
-                                                  0,
-                                            );
-                                          }),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Top Movie",
-                                  style: GoogleFonts.nunito(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20,
+                                  const SizedBox(
+                                    height: 20,
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                SizedBox(
-                                  height: 260,
-                                  child: movieController.isLoadingTop.value
-                                      ? Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : ListView.builder(
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: movieController
-                                                  .movieTopModel
-                                                  ?.results
-                                                  .length ??
-                                              0,
-                                          itemBuilder: (context, index) {
-                                            return MovieCard(
-                                              title: movieController
-                                                      .movieTopModel
-                                                      ?.results[index]
-                                                      .title ??
-                                                  "no title",
-                                              rating: movieController
-                                                      .movieTopModel
-                                                      ?.results[index]
-                                                      .voteAverage
-                                                      .toString() ??
-                                                  "0",
-                                              linkImage: movieController
-                                                      .movieTopModel
-                                                      ?.results[index]
-                                                      .posterPath ??
-                                                  "",
-                                              id: movieController.movieTopModel
-                                                      ?.results[index].id ??
-                                                  0,
-                                            );
-                                          }),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Popular on Movie it",
-                                  style: GoogleFonts.nunito(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20,
+                                  SizedBox(
+                                    height: 260,
+                                    child: movieController.isLoading.value
+                                        ? Center(
+                                            child: CircularProgressIndicator(),
+                                          )
+                                        : ListView.builder(
+                                            physics:
+                                                const BouncingScrollPhysics(),
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: movieController
+                                                    .movieModel
+                                                    ?.results
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              return MovieCard(
+                                                title: movieController
+                                                        .movieModel
+                                                        ?.results[index]
+                                                        .title ??
+                                                    "no title",
+                                                rating: movieController
+                                                        .movieModel
+                                                        ?.results[index]
+                                                        .voteAverage
+                                                        .toString() ??
+                                                    "0",
+                                                linkImage: movieController
+                                                        .movieModel
+                                                        ?.results[index]
+                                                        .posterPath ??
+                                                    "",
+                                                id: movieController.movieModel
+                                                        ?.results[index].id ??
+                                                    0,
+                                              );
+                                            }),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                SizedBox(
-                                  height: 260,
-                                  child: movieController.isLoadingPopular.value
-                                      ? Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : ListView.builder(
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: movieController
-                                                  .moviePopularModel
-                                                  ?.results
-                                                  .length ??
-                                              0,
-                                          itemBuilder: (context, index) {
-                                            return MovieCard(
-                                              title: movieController
-                                                      .moviePopularModel
-                                                      ?.results[index]
-                                                      .title ??
-                                                  "no title",
-                                              rating: movieController
-                                                      .moviePopularModel
-                                                      ?.results[index]
-                                                      .voteAverage
-                                                      .toString() ??
-                                                  "0",
-                                              linkImage: movieController
-                                                      .moviePopularModel
-                                                      ?.results[index]
-                                                      .posterPath ??
-                                                  "",
-                                              id: movieController
-                                                      .moviePopularModel
-                                                      ?.results[index]
-                                                      .id ??
-                                                  0,
-                                            );
-                                          }),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                          ],
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Top Movie",
+                                    style: GoogleFonts.nunito(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  SizedBox(
+                                    height: 260,
+                                    child: movieController.isLoadingTop.value
+                                        ? Center(
+                                            child: CircularProgressIndicator(),
+                                          )
+                                        : ListView.builder(
+                                            physics:
+                                                const BouncingScrollPhysics(),
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: movieController
+                                                    .movieTopModel
+                                                    ?.results
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              return MovieCard(
+                                                title: movieController
+                                                        .movieTopModel
+                                                        ?.results[index]
+                                                        .title ??
+                                                    "no title",
+                                                rating: movieController
+                                                        .movieTopModel
+                                                        ?.results[index]
+                                                        .voteAverage
+                                                        .toString() ??
+                                                    "0",
+                                                linkImage: movieController
+                                                        .movieTopModel
+                                                        ?.results[index]
+                                                        .posterPath ??
+                                                    "",
+                                                id: movieController
+                                                        .movieTopModel
+                                                        ?.results[index]
+                                                        .id ??
+                                                    0,
+                                              );
+                                            }),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 40,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Popular on Movie it",
+                                    style: GoogleFonts.nunito(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  SizedBox(
+                                    height: 260,
+                                    child: movieController
+                                            .isLoadingPopular.value
+                                        ? Center(
+                                            child: CircularProgressIndicator(),
+                                          )
+                                        : ListView.builder(
+                                            physics:
+                                                const BouncingScrollPhysics(),
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: movieController
+                                                    .moviePopularModel
+                                                    ?.results
+                                                    .length ??
+                                                0,
+                                            itemBuilder: (context, index) {
+                                              return MovieCard(
+                                                title: movieController
+                                                        .moviePopularModel
+                                                        ?.results[index]
+                                                        .title ??
+                                                    "no title",
+                                                rating: movieController
+                                                        .moviePopularModel
+                                                        ?.results[index]
+                                                        .voteAverage
+                                                        .toString() ??
+                                                    "0",
+                                                linkImage: movieController
+                                                        .moviePopularModel
+                                                        ?.results[index]
+                                                        .posterPath ??
+                                                    "",
+                                                id: movieController
+                                                        .moviePopularModel
+                                                        ?.results[index]
+                                                        .id ??
+                                                    0,
+                                              );
+                                            }),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

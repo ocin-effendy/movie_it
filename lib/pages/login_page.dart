@@ -95,12 +95,12 @@ class LoginPage extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      //print(controller.movieModel?.results[0].title);
-                      //print(controller.movieModel?.results[1].title);
-                      //print(controller.movieModel?.results[2].title);
-                      // var data = await MovieService().getNowPlayingMovies();
-                      // print(data.body);
-                      //Navigator.pus h(context, MaterialPageRoute(builder: (BuildContext context) => LoginInput(type: "Login",)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => LoginInput(
+                                    type: "Login",
+                                  )));
                     },
                     child: Text(
                       "Login",

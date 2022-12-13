@@ -8,7 +8,7 @@ import 'package:movie_it/pages/tv_shows_page.dart';
 
 class Root extends StatelessWidget {
   Root({Key? key}) : super(key: key);
-	final screenController = Get.find<ScreenController>();
+  final screenController = Get.put(ScreenController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,11 +72,11 @@ class Root extends StatelessWidget {
       bottomNavigationBar: GetBuilder<ScreenController>(
         init: ScreenController(),
         builder: (controller) => Container(
-					decoration: BoxDecoration(
-						border: Border(top: BorderSide(color: Colors.blueGrey,))
-
-
-					),
+          decoration: BoxDecoration(
+              border: Border(
+                  top: BorderSide(
+            color: Colors.blueGrey,
+          ))),
           child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               backgroundColor: Colors.black,
