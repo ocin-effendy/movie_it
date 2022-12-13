@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
         stream: authController.streamAuthStatus(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
-            print(snapshot.data);
             return GetMaterialApp(
               initialBinding: ControllerBindings(),
               debugShowCheckedModeBanner: false,
