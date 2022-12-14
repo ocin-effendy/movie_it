@@ -3,9 +3,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:movie_it/controller/auth_controller.dart';
-import 'package:movie_it/pages/film_page.dart';
-import 'package:movie_it/root.dart';
 import 'package:movie_it/widget/background.dart';
+import 'package:movie_it/widget/primary_button.dart';
 
 class LoginInput extends StatefulWidget {
   LoginInput({Key? key, required this.type}) : super(key: key);
@@ -201,24 +200,10 @@ class _LoginInputState extends State<LoginInput> {
                                   emailC.text, passwordC.text);
                             }
                           },
-                          child: Container(
+                          child: PrimaryButton(
+                            title: widget.type,
                             width: screenWidth * .8,
                             height: 50,
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                              gradient: LinearGradient(colors: [
-                                Color.fromRGBO(210, 32, 60, 1),
-                                Color.fromRGBO(86, 66, 212, 1),
-                              ]),
-                            ),
-                            child: Center(
-                                child: Text(
-                              widget.type,
-                              style: GoogleFonts.nunito(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
-                            )),
                           ),
                         ),
                       ],

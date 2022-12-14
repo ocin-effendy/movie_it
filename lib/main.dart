@@ -26,14 +26,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-        stream: authController.streamAuthStatus(),
+        stream: authController.streamAuthStatus,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             return GetMaterialApp(
               initialBinding: ControllerBindings(),
               debugShowCheckedModeBanner: false,
               theme: ThemeData(scaffoldBackgroundColor: Colors.black),
-              home: snapshot.data != null ? Root() : LoginPage(),
+              home: snapshot.data != null && snapshot.data!.emailVerified
+                  ? Root()
+                  : LoginPage(),
             );
           }
           return LoadingView();

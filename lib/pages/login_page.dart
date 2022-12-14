@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:movie_it/controller/movie_controller.dart';
 import 'package:movie_it/pages/login_user_input.dart';
-import 'package:movie_it/service/movie_service.dart';
 import 'package:movie_it/widget/background.dart';
+import 'package:movie_it/widget/primary_button.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,30 +53,11 @@ class LoginPage extends StatelessWidget {
                 height: 60,
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => LoginInput(
-                                type: "Sign Up",
-                              )));
-                },
-                child: Container(
+                onTap: () => Get.to(LoginInput(type: "Sign Up")),
+                child: PrimaryButton(
+                  title: "Sign Up",
                   width: screenWidth * .8,
                   height: 50,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    gradient: LinearGradient(colors: [
-                      Color.fromRGBO(210, 32, 60, 1),
-                      Color.fromRGBO(86, 66, 212, 1),
-                    ]),
-                  ),
-                  child: Center(
-                      child: Text(
-                    "Sign Up",
-                    style: GoogleFonts.nunito(
-                        fontWeight: FontWeight.w500, color: Colors.white),
-                  )),
                 ),
               ),
               const SizedBox(
@@ -94,14 +74,7 @@ class LoginPage extends StatelessWidget {
                         fontWeight: FontWeight.w500),
                   ),
                   TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => LoginInput(
-                                    type: "Login",
-                                  )));
-                    },
+                    onPressed: () => Get.to(LoginInput(type: "Login")),
                     child: Text(
                       "Login",
                       style: GoogleFonts.nunito(

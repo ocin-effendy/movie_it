@@ -131,7 +131,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
                                   height: 20,
                                 ),
                                 SizedBox(
-                                  height: 260,
+                                  height: screenHeight * .32,
                                   child: movieController.isLoadingTop.value
                                       ? Center(
                                           child: CircularProgressIndicator(),
@@ -189,7 +189,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
                                   height: 20,
                                 ),
                                 SizedBox(
-                                  height: 260,
+                                  height: screenHeight * .32,
                                   child: movieController.isLoadingPopular.value
                                       ? Center(
                                           child: CircularProgressIndicator(),
@@ -249,7 +249,7 @@ class _TvShowsPageState extends State<TvShowsPage> {
                                   height: 20,
                                 ),
                                 SizedBox(
-                                  height: 260,
+                                  height: screenHeight * .32,
                                   child: movieController.isLoading.value
                                       ? Center(
                                           child: CircularProgressIndicator(),

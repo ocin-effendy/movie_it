@@ -14,8 +14,8 @@ class FilmPage extends StatefulWidget {
 
 class _FilmPageState extends State<FilmPage> {
   FocusNode focusNode = FocusNode();
-  final movieController = Get.find<MovieController>();
-  final authController = Get.find<AuthController>();
+  final movieC = Get.find<MovieController>();
+  final authC = Get.find<AuthController>();
   bool statusSearch = false;
 
   @override
@@ -51,7 +51,10 @@ class _FilmPageState extends State<FilmPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                          onPressed: () => authController.logOut(),
+                          onPressed: () {
+                            authC.removeEmailFromLocal();
+                            authC.logOut();
+                          },
                           icon: const Icon(
                             Icons.arrow_back_ios_rounded,
                             color: Colors.white,
@@ -133,8 +136,8 @@ class _FilmPageState extends State<FilmPage> {
                                     height: 20,
                                   ),
                                   SizedBox(
-                                    height: 260,
-                                    child: movieController.isLoading.value
+                                    height: screenHeight * .32,
+                                    child: movieC.isLoading.value
                                         ? Center(
                                             child: CircularProgressIndicator(),
                                           )
@@ -142,30 +145,28 @@ class _FilmPageState extends State<FilmPage> {
                                             physics:
                                                 const BouncingScrollPhysics(),
                                             scrollDirection: Axis.horizontal,
-                                            itemCount: movieController
-                                                    .movieModel
-                                                    ?.results
-                                                    .length ??
+                                            itemCount: movieC.movieModel
+                                                    ?.results.length ??
                                                 0,
                                             itemBuilder: (context, index) {
                                               return MovieCard(
-                                                title: movieController
+                                                title: movieC
                                                         .movieModel
                                                         ?.results[index]
                                                         .title ??
                                                     "no title",
-                                                rating: movieController
+                                                rating: movieC
                                                         .movieModel
                                                         ?.results[index]
                                                         .voteAverage
                                                         .toString() ??
                                                     "0",
-                                                linkImage: movieController
+                                                linkImage: movieC
                                                         .movieModel
                                                         ?.results[index]
                                                         .posterPath ??
                                                     "",
-                                                id: movieController.movieModel
+                                                id: movieC.movieModel
                                                         ?.results[index].id ??
                                                     0,
                                               );
@@ -191,8 +192,8 @@ class _FilmPageState extends State<FilmPage> {
                                     height: 20,
                                   ),
                                   SizedBox(
-                                    height: 260,
-                                    child: movieController.isLoadingTop.value
+                                    height: screenHeight * .32,
+                                    child: movieC.isLoadingTop.value
                                         ? Center(
                                             child: CircularProgressIndicator(),
                                           )
@@ -200,33 +201,29 @@ class _FilmPageState extends State<FilmPage> {
                                             physics:
                                                 const BouncingScrollPhysics(),
                                             scrollDirection: Axis.horizontal,
-                                            itemCount: movieController
-                                                    .movieTopModel
-                                                    ?.results
-                                                    .length ??
+                                            itemCount: movieC.movieTopModel
+                                                    ?.results.length ??
                                                 0,
                                             itemBuilder: (context, index) {
                                               return MovieCard(
-                                                title: movieController
+                                                title: movieC
                                                         .movieTopModel
                                                         ?.results[index]
                                                         .title ??
                                                     "no title",
-                                                rating: movieController
+                                                rating: movieC
                                                         .movieTopModel
                                                         ?.results[index]
                                                         .voteAverage
                                                         .toString() ??
                                                     "0",
-                                                linkImage: movieController
+                                                linkImage: movieC
                                                         .movieTopModel
                                                         ?.results[index]
                                                         .posterPath ??
                                                     "",
-                                                id: movieController
-                                                        .movieTopModel
-                                                        ?.results[index]
-                                                        .id ??
+                                                id: movieC.movieTopModel
+                                                        ?.results[index].id ??
                                                     0,
                                               );
                                             }),
@@ -251,9 +248,8 @@ class _FilmPageState extends State<FilmPage> {
                                     height: 20,
                                   ),
                                   SizedBox(
-                                    height: 260,
-                                    child: movieController
-                                            .isLoadingPopular.value
+                                    height: screenHeight * .32,
+                                    child: movieC.isLoadingPopular.value
                                         ? Center(
                                             child: CircularProgressIndicator(),
                                           )
@@ -261,33 +257,29 @@ class _FilmPageState extends State<FilmPage> {
                                             physics:
                                                 const BouncingScrollPhysics(),
                                             scrollDirection: Axis.horizontal,
-                                            itemCount: movieController
-                                                    .moviePopularModel
-                                                    ?.results
-                                                    .length ??
+                                            itemCount: movieC.moviePopularModel
+                                                    ?.results.length ??
                                                 0,
                                             itemBuilder: (context, index) {
                                               return MovieCard(
-                                                title: movieController
+                                                title: movieC
                                                         .moviePopularModel
                                                         ?.results[index]
                                                         .title ??
                                                     "no title",
-                                                rating: movieController
+                                                rating: movieC
                                                         .moviePopularModel
                                                         ?.results[index]
                                                         .voteAverage
                                                         .toString() ??
                                                     "0",
-                                                linkImage: movieController
+                                                linkImage: movieC
                                                         .moviePopularModel
                                                         ?.results[index]
                                                         .posterPath ??
                                                     "",
-                                                id: movieController
-                                                        .moviePopularModel
-                                                        ?.results[index]
-                                                        .id ??
+                                                id: movieC.moviePopularModel
+                                                        ?.results[index].id ??
                                                     0,
                                               );
                                             }),
