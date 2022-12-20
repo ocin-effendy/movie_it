@@ -28,6 +28,12 @@ class AuthController extends GetxController {
       update();
     }
   }
+	
+	String getUserId(){
+		final User? user = auth.currentUser;
+		final uid = user!.uid;
+		return uid;
+	}
 
   Stream<User?> get streamAuthStatus => auth.authStateChanges();
 

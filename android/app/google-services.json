@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "444641112601",
+		"firebase_url": "https://movie-it-ccb91-default-rtdb.asia-southeast1.firebasedatabase.app/",
     "project_id": "movie-it-ccb91",
     "storage_bucket": "movie-it-ccb91.appspot.com"
   },

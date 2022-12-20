@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:movie_it/controller/auth_controller.dart';
+import 'package:movie_it/controller/database_controller.dart';
 import 'package:movie_it/controller/movie_controller.dart';
 import 'package:movie_it/widget/background.dart';
 import 'package:movie_it/widget/moviecard.dart';
@@ -16,6 +17,7 @@ class _FilmPageState extends State<FilmPage> {
   FocusNode focusNode = FocusNode();
   final movieC = Get.find<MovieController>();
   final authC = Get.find<AuthController>();
+	final dbC = Get.find<DatabaseController>();
   bool statusSearch = false;
 
   @override
@@ -52,6 +54,7 @@ class _FilmPageState extends State<FilmPage> {
                     children: [
                       IconButton(
                           onPressed: () {
+														print("masuk ke klik");
                             authC.removeEmailFromLocal();
                             authC.logOut();
                           },

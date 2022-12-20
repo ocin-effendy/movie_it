@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_it/controller/auth_controller.dart';
+import 'package:movie_it/controller/database_controller.dart';
 import 'package:movie_it/controller/movie_controller.dart';
 import 'package:movie_it/controller/screen_controller.dart';
 import 'package:movie_it/pages/film_page.dart';
@@ -20,10 +22,14 @@ class _DetailMovieState extends State<DetailMovie> {
   ScrollController scrollController = ScrollController();
   final movieController = Get.find<MovieController>();
   final screenController = Get.find<ScreenController>();
+	final authC = Get.find<AuthController>();
+	final dbC = Get.find<DatabaseController>();
 
   double containerHeight = 500;
   double imageOpacity = 1;
+	bool statusBookmark = false;
 
+	
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -142,12 +148,24 @@ class _DetailMovieState extends State<DetailMovie> {
                                         ),
                                         IconButton(
                                             padding: EdgeInsets.zero,
-                                            onPressed: () {},
-                                            icon: Icon(
+                                            onPressed: () {
+																							setState(() {
+																								statusBookmark = !statusBookmark;
+																								if(statusBookmark){
+																									dbC.writeDataMovie(authC.getUserId(), widget.id );
+																								}
+																							});
+																						},
+                                            icon: statusBookmark ? Icon(
+                                              Icons.bookmark,
+                                              size: 36,
+                                              color: Colors.white,
+                                            ) : Icon(
                                               Icons.bookmark_border_rounded,
                                               size: 36,
                                               color: Colors.white,
-                                            ))
+                                            ) 
+																					)
                                       ],
                                     ),
                                     Row(
