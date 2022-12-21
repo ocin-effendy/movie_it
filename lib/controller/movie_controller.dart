@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:movie_it/controller/auth_controller.dart';
+import 'package:movie_it/controller/database_controller.dart';
 import 'package:movie_it/models/movie_detail_model.dart';
 import 'package:movie_it/models/movie_model.dart';
 import 'package:http/http.dart' as http;
@@ -17,6 +19,9 @@ class MovieController extends GetxController {
   var isLoadingPopular = false.obs;
   var isLoadingTop = false.obs;
   var isLoadingDetail = false.obs;
+
+  final dbC = Get.find<DatabaseController>();
+  final authC = Get.find<AuthController>();
 
   void fetchDataMovies() async {
     try {
@@ -79,8 +84,8 @@ class MovieController extends GetxController {
           await http.get(Uri.tryParse('$BASE_URL/movie/$id?$API_KEY')!);
       if (response.statusCode == 200) {
         var result = jsonDecode(response.body);
-        print(result);
         movieDetail = MovieDetail.fromJson(result);
+        dbC.getIdMovie(authC.getUserId(), id);
       } else {
         print("Error Fetching Data");
       }

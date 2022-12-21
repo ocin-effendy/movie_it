@@ -21,7 +21,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   final authController = Get.put(AuthController(), permanent: true);
-	final dbController = Get.put(DatabaseController(), permanent: true);
+  final dbController = Get.put(DatabaseController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
         stream: authController.streamAuthStatus,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
-						print(snapshot.data!.uid);
             return GetMaterialApp(
               initialBinding: ControllerBindings(),
               debugShowCheckedModeBanner: false,

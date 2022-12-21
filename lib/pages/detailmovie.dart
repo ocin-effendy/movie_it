@@ -20,16 +20,15 @@ class DetailMovie extends StatefulWidget {
 
 class _DetailMovieState extends State<DetailMovie> {
   ScrollController scrollController = ScrollController();
-  final movieController = Get.find<MovieController>();
-  final screenController = Get.find<ScreenController>();
-	final authC = Get.find<AuthController>();
-	final dbC = Get.find<DatabaseController>();
+  final movieC = Get.find<MovieController>();
+  final screenC = Get.find<ScreenController>();
+  final authC = Get.find<AuthController>();
+  final dbC = Get.find<DatabaseController>();
 
   double containerHeight = 500;
   double imageOpacity = 1;
-	bool statusBookmark = false;
+  bool statusBookmark = false;
 
-	
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -38,7 +37,7 @@ class _DetailMovieState extends State<DetailMovie> {
     return Scaffold(
       body: Obx(
         () => SafeArea(
-          child: movieController.isLoadingDetail.value
+          child: movieC.isLoadingDetail.value
               ? Stack(children: const [
                   Background(),
                   Center(
@@ -63,7 +62,7 @@ class _DetailMovieState extends State<DetailMovie> {
                                   child: ClipRRect(
                                     child: CachedNetworkImage(
                                       imageUrl:
-                                          "$BASE_IMAGE_URL${movieController.movieDetail?.posterPath ?? ''}",
+                                          "$BASE_IMAGE_URL${movieC.movieDetail?.posterPath ?? ''}",
                                       placeholder: (context, url) => Center(
                                         child: CircularProgressIndicator(),
                                       ),
@@ -135,9 +134,7 @@ class _DetailMovieState extends State<DetailMovie> {
                                         SizedBox(
                                           width: screenWidth * .65,
                                           child: Text(
-                                            movieController
-                                                    .movieDetail?.title ??
-                                                "",
+                                            movieC.movieDetail?.title ?? "",
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 2,
                                             style: GoogleFonts.nunito(
@@ -149,23 +146,44 @@ class _DetailMovieState extends State<DetailMovie> {
                                         IconButton(
                                             padding: EdgeInsets.zero,
                                             onPressed: () {
-																							setState(() {
-																								statusBookmark = !statusBookmark;
-																								if(statusBookmark){
-																									dbC.writeDataMovie(authC.getUserId(), widget.id );
-																								}
-																							});
-																						},
-                                            icon: statusBookmark ? Icon(
-                                              Icons.bookmark,
-                                              size: 36,
-                                              color: Colors.white,
-                                            ) : Icon(
-                                              Icons.bookmark_border_rounded,
-                                              size: 36,
-                                              color: Colors.white,
-                                            ) 
-																					)
+                                              setState(() {
+                                                if (dbC.getStatusMovie.value) {
+                                                  dbC.deleteMovie(
+                                                      authC.getUserId(),
+                                                      widget.id);
+                                                  dbC.getStatusMovie(false);
+                                                } else {
+                                                  dbC.writeDataMovie(
+                                                    authC.getUserId(),
+                                                    widget.id,
+                                                    movieC.movieDetail?.title ??
+                                                        "",
+                                                    movieC.movieDetail
+                                                            ?.voteAverage
+                                                            .toStringAsFixed(
+                                                                1) ??
+                                                        "",
+                                                    "$BASE_IMAGE_URL${movieC.movieDetail?.posterPath ?? ''}",
+                                                    movieC.movieDetail
+                                                            ?.overview ??
+                                                        '',
+                                                  );
+                                                  dbC.getStatusMovie(true);
+                                                }
+                                              });
+                                            },
+                                            icon: dbC.getStatusMovie.value
+                                                ? Icon(
+                                                    Icons.bookmark,
+                                                    size: 36,
+                                                    color: Colors.white,
+                                                  )
+                                                : Icon(
+                                                    Icons
+                                                        .bookmark_border_rounded,
+                                                    size: 36,
+                                                    color: Colors.white,
+                                                  ))
                                       ],
                                     ),
                                     Row(
@@ -179,8 +197,7 @@ class _DetailMovieState extends State<DetailMovie> {
                                           width: 10,
                                         ),
                                         Text(
-                                          movieController
-                                                  .movieDetail?.voteAverage
+                                          movieC.movieDetail?.voteAverage
                                                   .toStringAsFixed(1) ??
                                               "",
                                           style: GoogleFonts.nunito(
@@ -196,14 +213,12 @@ class _DetailMovieState extends State<DetailMovie> {
                                       height: 25,
                                       child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
-                                          itemCount: movieController
+                                          itemCount: movieC
                                                   .movieDetail?.genres.length ??
                                               0,
                                           itemBuilder: (context, index) {
-                                            String? genre = movieController
-                                                .movieDetail
-                                                ?.genres[index]
-                                                .name;
+                                            String? genre = movieC.movieDetail
+                                                ?.genres[index].name;
                                             return Container(
                                               margin:
                                                   EdgeInsets.only(right: 10),
@@ -253,8 +268,7 @@ class _DetailMovieState extends State<DetailMovie> {
                                               ),
                                             ),
                                             Text(
-                                              movieController
-                                                      .movieDetail?.popularity
+                                              movieC.movieDetail?.popularity
                                                       .toStringAsFixed(2) ??
                                                   '',
                                               style: GoogleFonts.nunito(
@@ -276,7 +290,7 @@ class _DetailMovieState extends State<DetailMovie> {
                                               ),
                                             ),
                                             Text(
-                                              movieController.movieDetail
+                                              movieC.movieDetail
                                                       ?.originalLanguage ??
                                                   '',
                                               style: GoogleFonts.nunito(
@@ -298,9 +312,7 @@ class _DetailMovieState extends State<DetailMovie> {
                                               ),
                                             ),
                                             Text(
-                                              movieController
-                                                      .movieDetail?.status ??
-                                                  '',
+                                              movieC.movieDetail?.status ?? '',
                                               style: GoogleFonts.nunito(
                                                 color: Colors.white,
                                                 fontSize: 12,
@@ -320,8 +332,7 @@ class _DetailMovieState extends State<DetailMovie> {
                                               ),
                                             ),
                                             Text(
-                                              movieController
-                                                      .movieDetail?.releaseDate
+                                              movieC.movieDetail?.releaseDate
                                                       .toString()
                                                       .split('-')[0] ??
                                                   '',
@@ -343,8 +354,7 @@ class _DetailMovieState extends State<DetailMovie> {
                                           color: Colors.white, fontSize: 16),
                                     ),
                                     Text(
-                                      movieController.movieDetail?.overview ??
-                                          '',
+                                      movieC.movieDetail?.overview ?? '',
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 6,
                                       style: GoogleFonts.nunito(
@@ -361,13 +371,14 @@ class _DetailMovieState extends State<DetailMovie> {
                     ),
                     IconButton(
                         onPressed: () {
-                          if (screenController.currentTab == 0) {
-                            screenController.setCurrentScreen(
-                                FilmPage(), screenController.currentTab);
-                          } else if (screenController.currentTab == 1) {
-                            screenController.setCurrentScreen(
-                                TvShowsPage(), screenController.currentTab);
+                          if (screenC.currentTab == 0) {
+                            screenC.setCurrentScreen(
+                                FilmPage(), screenC.currentTab);
+                          } else if (screenC.currentTab == 1) {
+                            screenC.setCurrentScreen(
+                                TvShowsPage(), screenC.currentTab);
                           }
+                          dbC.getStatusMovie(false);
                         },
                         icon: const Icon(
                           Icons.arrow_back_ios_rounded,

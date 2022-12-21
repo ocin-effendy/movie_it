@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_it/controller/auth_controller.dart';
+import 'package:movie_it/controller/database_controller.dart';
 import 'package:movie_it/controller/movie_controller.dart';
 import 'package:movie_it/controller/screen_controller.dart';
 import 'package:movie_it/pages/detailmovie.dart';

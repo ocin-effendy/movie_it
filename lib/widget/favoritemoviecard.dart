@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:movie_it/controller/auth_controller.dart';
+import 'package:movie_it/controller/database_controller.dart';
 
 class FavoriteMovieCard extends StatelessWidget {
-  FavoriteMovieCard({Key? key, required this.title, required this.rating, required this.linkImage, required this.desc}) : super(key: key);
-	String title;
-	String rating;
-	String linkImage;
-	String desc;
+  FavoriteMovieCard(
+      {Key? key,
+      required this.id,
+      required this.title,
+      required this.rating,
+      required this.linkImage,
+      required this.desc})
+      : super(key: key);
+  int id;
+  String title;
+  String rating;
+  String linkImage;
+  String desc;
+
+  final authC = Get.find<AuthController>();
+  final dbC = Get.find<DatabaseController>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +46,7 @@ class FavoriteMovieCard extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(linkImage))),
+                    fit: BoxFit.fill, image: NetworkImage(linkImage))),
           ),
           const SizedBox(
             width: 10,
@@ -45,15 +58,16 @@ class FavoriteMovieCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-									crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-											padding: const EdgeInsets.only(top: 10),
+                      width: screenWidth * .3,
+                      padding: const EdgeInsets.only(top: 10),
                       child: Text(
-												title,
-												maxLines: 2,
-												overflow: TextOverflow.ellipsis,
+                        title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.nunito(
                             color: Colors.white,
                             fontSize: 18,
@@ -61,9 +75,12 @@ class FavoriteMovieCard extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-												padding: EdgeInsets.zero,
-                        onPressed: () {},
-                        icon: Icon(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          dbC.deleteMovie(authC.getUserId(), id);
+                          dbC.deleteMovieInList(id);
+                        },
+                        icon: const Icon(
                           Icons.bookmark_rounded,
                           color: Colors.white,
                         ))
@@ -80,7 +97,7 @@ class FavoriteMovieCard extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      "9.1",
+                      rating,
                       style: GoogleFonts.nunito(
                         color: Colors.white,
                       ),
@@ -93,7 +110,7 @@ class FavoriteMovieCard extends StatelessWidget {
                 Text(
                   desc,
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 5,
+                  maxLines: 4,
                   style: GoogleFonts.nunito(
                     color: Colors.white,
                   ),

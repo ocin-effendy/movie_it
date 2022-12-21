@@ -1,6 +1,10 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:movie_it/controller/auth_controller.dart';
+import 'package:movie_it/controller/database_controller.dart';
 import 'package:movie_it/widget/background.dart';
 import 'package:movie_it/widget/favoritemoviecard.dart';
 
@@ -11,6 +15,8 @@ class Favoritespage extends StatefulWidget {
 
 class _FavoritespageState extends State<Favoritespage> {
   FocusNode focusNode = FocusNode();
+  final dbC = Get.find<DatabaseController>();
+  final authC = Get.find<AuthController>();
 
   bool statusSearch = false;
 
@@ -106,42 +112,44 @@ class _FavoritespageState extends State<Favoritespage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          children: [
-                            FavoriteMovieCard(
-                                title: "After",
-                                rating: "9.1",
-                                linkImage:
-                                    "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                desc:
-                                    "Film ini sangat baik dikarenakan ya baik bukan jelek, klu jelek ya film ini jelek. Sangat membantu bukan sinopsis ini. Semoga kalian tidak suka dengan film ini dikarenakan film dajjal ini"),
-														FavoriteMovieCard(
-                                title: "After",
-                                rating: "9.1",
-                                linkImage:
-                                    "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                desc:
-                                    "Film ini sangat baik dikarenakan ya baik bukan jelek, klu jelek ya film ini jelek. Sangat membantu bukan sinopsis ini. Semoga kalian tidak suka dengan film ini dikarenakan film dajjal ini"),
-														FavoriteMovieCard(
-                                title: "After",
-                                rating: "9.1",
-                                linkImage:
-                                    "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180",
-                                desc:
-                                    "Film ini sangat baik dikarenakan ya baik bukan jelek, klu jelek ya film ini jelek. Sangat membantu bukan sinopsis ini. Semoga kalian tidak suka dengan film ini dikarenakan film dajjal ini"),
-
-
-                            const SizedBox(
-                              height: 20,
+                  GetBuilder(
+                    init: dbC,
+                    initState: (_) => dbC.readDataMovie(authC.getUserId()),
+                    builder: (controller) => Container(
+                      child: controller.listMovieId.length == 0
+                          ? Center(
+                              child: Text(
+                              "No Favorite Movie",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600),
+                            ))
+                          : Expanded(
+                              child: Container(
+                                height: screenHeight,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: ListView.builder(
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: controller.listMovieId.length,
+                                  itemBuilder: (context, index) {
+                                    return FavoriteMovieCard(
+                                        id: controller.listMovieId[index]
+                                            ['movieId'],
+                                        title: controller.listMovieId[index]
+                                            ['title'],
+                                        rating: controller.listMovieId[index]
+                                            ['rating'],
+                                        linkImage: controller.listMovieId[index]
+                                            ['linkImage'],
+                                        desc: controller.listMovieId[index]
+                                            ['desc']);
+                                  },
+                                ),
+                              ),
                             ),
-                          ],
-                        ),
-                      ),
                     ),
                   ),
                 ],
